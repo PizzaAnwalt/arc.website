@@ -220,7 +220,12 @@ nav a:hover::after{width:100%}
 .luma-dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,46,18,.6);animation:lumapulse 2s infinite}
 @keyframes lumapulse{0%{box-shadow:0 0 0 0 rgba(255,46,18,.55)}70%{box-shadow:0 0 0 9px rgba(255,46,18,0)}100%{box-shadow:0 0 0 0 rgba(255,46,18,0)}}
 .luma-body{padding:26px 22px 24px}
-.luma-day{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--red);margin-bottom:12px}
+.luma-day{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--red);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.luma-tba{font-size:9px;letter-spacing:.14em;color:var(--red);border:1px solid var(--red);border-radius:2px;padding:3px 8px;white-space:nowrap}
+@media(max-width:520px){
+  .luma-day{font-size:11px;letter-spacing:.12em;gap:8px}
+  .luma-tba{font-size:8px;padding:2px 6px}
+}
 .luma-title{font-family:var(--display);font-size:clamp(26px,7vw,34px);text-transform:uppercase;line-height:1;margin-bottom:14px;overflow-wrap:break-word}
 .luma-title .red{color:var(--red)}
 .luma-desc{color:#b9c0bc;font-size:15px;line-height:1.5;max-width:38ch}
@@ -405,7 +410,7 @@ html,body{overflow-x:hidden;max-width:100%}
     <div>
       <div class="eyebrow rev">Join in</div>
       <h2 class="h-display rev">Just show<br>up.</h2>
-      <p class="lead rev">Before each run, join our Strava club. It's non-binding and just helps everyone keep track of who's coming and see the next date. New here? Just turn up five minutes early and say hi.</p>
+      <p class="lead rev">We run every Sunday (start date to be announced, follow us to hear first). Before each run, join our Strava club. It's non-binding and just helps everyone keep track of who's coming and see the next date. New here? Just turn up ten minutes early and say hi.</p>
       <a class="coord-chip rev" href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">
         <span class="coord-pin" aria-hidden="true">◎</span>
         <span class="coord-body">
@@ -422,9 +427,9 @@ html,body{overflow-x:hidden;max-width:100%}
           <span class="luma-live"><span class="luma-dot"></span>Run club</span>
         </div>
         <div class="luma-body">
-          <div class="luma-day">SUN · 09:00</div>
+          <div class="luma-day"><span>EVERY SUNDAY · 09:00</span><span class="luma-tba">START DATE TBA</span></div>
           <div class="luma-title">Sunday Run · <span class="red">6 KM</span></div>
-          <div class="luma-desc">Meet at the old bridge. Easy pace, every level welcome, coffee in the old town after.</div>
+          <div class="luma-desc">Meet at the old bridge, ten minutes before the start. Easy pace, every level welcome, coffee in the old town after.</div>
         </div>
         <div class="luma-foot">
           <span>Join before the run · non-binding</span>
@@ -456,7 +461,7 @@ html,body{overflow-x:hidden;max-width:100%}
       </details>
       <details>
         <summary>How do I take part? <span class="x">+</span></summary>
-        <p>Just come five minutes before the start at <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">the old bridge</a>. Joining the Strava club is non-binding and only helps us know you're coming and keeps you in the loop.</p>
+        <p>Just come ten minutes before the start at <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">the old bridge</a>. We're happy if you join our Strava club so we get an overview of who's coming, but it's not required. Turning up is all it takes.</p>
       </details>
       <details>
         <summary>How do we handle short-notice changes? <span class="x">+</span></summary>
@@ -487,6 +492,7 @@ html,body{overflow-x:hidden;max-width:100%}
         <h4>Follow</h4>
         <a href="https://instagram.com/arc.4600" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Strava</a>
+        <a href="https://linktr.ee/aarerunclub" target="_blank" rel="noopener">Linktree</a>
       </div>
     </div>
     <div class="f-bottom">
