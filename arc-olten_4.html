@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARC – Aare Run Club Olten · 4600</title>
+<meta name="description" content="The run club of Olten. One run a week, every pace, meet at the old bridge along the Aare. Run with us.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDEFEE;
+  --ink:#0E1110;
+  --red:#FF2E12;
+  --steel:#737B78;
+  --line:#CDD2CF;
+  --night:#0B0E0D;
+  --display:'Anton', sans-serif;
+  --body:'Archivo', sans-serif;
+  --mono:'IBM Plex Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:var(--red);color:var(--paper)}
+a{color:inherit}
+img{max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+/* ---------- utility ---------- */
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--red);flex:none}
+section{padding:clamp(80px,12vh,150px) 0;position:relative}
+.h-display{font-family:var(--display);text-transform:uppercase;line-height:.92;letter-spacing:.005em;font-weight:400}
+
+/* scroll reveal */
+.rev{opacity:0;transform:translateY(30px);transition:opacity .85s cubic-bezier(.2,.7,.2,1),transform .85s cubic-bezier(.2,.7,.2,1)}
+.rev.on{opacity:1;transform:none}
+
+/* ---------- progress bar ---------- */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:1001}
+
+/* ---------- header / HUD ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,56px);
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-lockup{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+.logo-arc{font-family:var(--display);font-size:26px;letter-spacing:.02em;color:var(--ink);line-height:.9}
+.logo-rule{display:block;width:100%;height:2px;background:var(--red);margin:3px 0 4px}
+.logo-sub{font-family:var(--mono);font-size:8px;letter-spacing:.34em;color:var(--ink);padding-left:.34em}
+.logo-text{font-family:var(--mono);font-size:12px;letter-spacing:.16em;line-height:1.3}
+.logo-text small{display:block;color:var(--steel);font-size:10px}
+nav{display:flex;gap:28px}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
+nav a:hover::after{width:100%}
+.hud{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.hud .lbl{color:var(--steel);margin-right:6px}
+.hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.hud .val.hot{color:var(--red)}
+@media(max-width:960px){nav{display:none}}
+@media(max-width:620px){.hud .pace-cell{display:none}}
+
+/* ---------- hero ---------- */
+#hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:120px;padding-bottom:0;overflow:hidden}
+.hero-ghost{
+  position:absolute;right:-2vw;top:10vh;
+  font-family:var(--display);font-size:clamp(160px,34vw,520px);
+  line-height:.8;color:transparent;
+  -webkit-text-stroke:1px var(--line);
+  user-select:none;pointer-events:none;z-index:0;
+}
+.hero-inner{position:relative;z-index:1}
+.hero-title{font-size:clamp(64px,12.5vw,200px);will-change:transform}
+.hero-title .red{color:var(--red)}
+.hero-sub{max-width:520px;margin-top:36px;font-size:17px;color:#3a403d}
+.hero-cta{display:flex;gap:14px;margin-top:40px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  padding:16px 28px;text-decoration:none;border:1px solid var(--ink);
+  background:var(--ink);color:var(--paper);position:relative;overflow:hidden;transition:color .35s;
+  border-radius:2px;
+}
+.btn span{position:relative;z-index:1}
+.btn::before{content:"";position:absolute;inset:0;background:var(--red);transform:translateX(-101%);transition:transform .35s cubic-bezier(.7,0,.3,1)}
+.btn:hover::before{transform:translateX(0)}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{color:var(--paper)}
+.btn.ghost::before{background:var(--ink)}
+.scroll-hint{margin-top:64px;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
+.scroll-hint .dot{width:8px;height:8px;border-radius:50%;background:var(--red);animation:pulse 1.6s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.4}}
+
+/* ---------- marquee ---------- */
+.marquee{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--paper)}
+.marquee-track{display:inline-block;will-change:transform}
+.marquee-track span{font-family:var(--display);font-size:clamp(22px,3vw,38px);text-transform:uppercase;letter-spacing:.02em;padding-right:18px}
+.marquee-track .sep{color:var(--red)}
+
+/* ---------- manifest ---------- */
+#manifest .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(40px,6vw,100px);align-items:start}
+#manifest h2{font-size:clamp(36px,5.4vw,78px);max-width:14ch}
+#manifest h2 em{font-style:normal;color:var(--red)}
+.manifest-copy p{margin-bottom:18px;color:#3a403d;max-width:46ch}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--ink);margin-top:8px}
+.stat{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:26px 22px;background:var(--paper);transition:background .3s}
+.stat:hover{background:#E4E7E5}
+.stat b{display:block;font-family:var(--display);font-size:clamp(36px,4vw,56px);line-height:1;font-weight:400}
+.stat b sup{font-size:.45em;color:var(--red);top:-.8em}
+.stat > span{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.stat b span{font-family:inherit;font-size:inherit;letter-spacing:inherit;color:inherit;text-transform:none}
+@media(max-width:880px){#manifest .grid{grid-template-columns:1fr}}
+
+/* ---------- trainings ---------- */
+#trainings{background:#E6E9E7;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.t-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:54px;flex-wrap:wrap}
+.t-head h2{font-size:clamp(40px,6vw,86px)}
+.t-head p{max-width:36ch;color:#3a403d}
+.t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.t-card{background:var(--paper);padding:34px 28px 40px;position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.t-card:hover{transform:translateY(-6px)}
+.t-card::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.7,0,.3,1)}
+.t-card:hover::after{transform:scaleX(1)}
+.t-day{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:18px;display:flex;justify-content:space-between}
+.t-day .time{color:var(--ink)}
+.t-card h3{font-family:var(--display);font-size:clamp(28px,2.6vw,40px);text-transform:uppercase;font-weight:400;line-height:1;margin-bottom:16px}
+.t-card p{color:#3a403d;font-size:15px;margin-bottom:22px}
+.t-meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--steel);display:grid;gap:6px}
+.t-meta div::before{content:"→ ";color:var(--red)}
+@media(max-width:880px){.t-grid{grid-template-columns:1fr}}
+
+/* ---------- route ---------- */
+#route .route-head{margin-bottom:40px}
+#route h2{font-size:clamp(40px,6vw,86px);max-width:12ch}
+.route-stage{position:relative;border:1px solid var(--ink);background:#F4F6F5;border-radius:4px;overflow:hidden}
+.route-svg{display:block;width:100%;height:auto}
+.route-svg a{cursor:pointer}
+.route-svg a text{text-decoration:underline;text-underline-offset:2px}
+.km-list{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid var(--ink);border-top:none}
+.km{padding:18px 16px;border-right:1px solid var(--ink);font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;opacity:.25;transition:opacity .5s, background .5s}
+.km:last-child{border-right:none}
+.km.lit{opacity:1;background:#E4E7E5}
+.km b{display:block;font-family:var(--display);font-size:22px;letter-spacing:.02em;font-weight:400;margin-bottom:4px}
+.km.lit b{color:var(--red)}
+@media(max-width:760px){.km-list{grid-template-columns:repeat(2,1fr)}.km{border-bottom:1px solid var(--ink)}}
+/* Mobile: keep the map legible by letting it scroll horizontally at a readable min width */
+@media(max-width:640px){
+  .route-stage{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .route-svg{min-width:560px}
+  .km-list .km{padding:14px 12px}
+  .km b{font-size:19px}
+}
+
+/* ---------- pace groups ---------- */
+#pace{background:var(--paper)}
+.p-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink);border:1px solid var(--ink)}
+.p-card{background:var(--paper);padding:30px 24px 36px;transition:background .3s,color .3s;position:relative}
+.p-card:hover{background:var(--ink);color:var(--paper)}
+.p-card:hover .p-pace{color:var(--red)}
+.p-tag{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--steel);margin-bottom:22px;display:block}
+.p-pace{font-family:var(--display);font-size:clamp(40px,4.4vw,64px);line-height:1;font-weight:400;transition:color .3s}
+.p-pace small{font-size:.3em;letter-spacing:.1em;font-family:var(--mono)}
+.p-card p{font-size:14px;margin-top:16px;opacity:.75}
+@media(max-width:880px){.p-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.p-grid{grid-template-columns:1fr}}
+
+/* ---------- night run (dark) ---------- */
+#night{background:var(--night);color:var(--paper);overflow:hidden}
+#night .eyebrow{color:#7f8884}
+#night h2{font-size:clamp(44px,7vw,110px);max-width:12ch}
+#night h2 .red{color:var(--red)}
+#night p.lead{max-width:46ch;color:#aab2ae;margin-top:26px}
+.night-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(40px,6vw,100px);align-items:center}
+.night-facts{display:grid;gap:1px;background:#262b29;border:1px solid #262b29}
+.nf{background:var(--night);padding:22px 24px;display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.nf b{color:var(--red);font-weight:500}
+.night-ghost{position:absolute;left:-4vw;bottom:-6vh;font-family:var(--display);font-size:clamp(140px,26vw,400px);color:transparent;-webkit-text-stroke:1px #232826;line-height:.8;pointer-events:none;user-select:none}
+@media(max-width:880px){.night-grid{grid-template-columns:1fr}}
+
+/* ---------- events ---------- */
+.e-row{border-top:1px solid var(--ink);display:grid;grid-template-columns:120px 1fr 1fr auto;gap:24px;align-items:center;padding:26px 8px;transition:background .3s,padding-left .3s}
+.e-row:last-child{border-bottom:1px solid var(--ink)}
+.e-row:hover{background:#E4E7E5;padding-left:20px}
+.e-when{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.e-name{font-family:var(--display);font-size:clamp(22px,2.4vw,34px);text-transform:uppercase;font-weight:400;line-height:1.05}
+.e-info{font-size:14px;color:#3a403d}
+.e-dist{font-family:var(--mono);font-size:12px;letter-spacing:.1em;color:var(--steel);white-space:nowrap}
+#events h2{font-size:clamp(40px,6vw,86px);margin-bottom:48px}
+@media(max-width:760px){.e-row{grid-template-columns:1fr;gap:8px}}
+
+/* ---------- join ---------- */
+#join{background:#E6E9E7;border-top:1px solid var(--line)}
+.join-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,100px);align-items:start}
+#join h2{font-size:clamp(44px,6.4vw,92px)}
+#join .lead{color:#3a403d;margin-top:24px;max-width:42ch}
+.luma-card{display:block;border:1px solid var(--ink);background:var(--ink);color:var(--paper);text-decoration:none;transition:transform .3s cubic-bezier(.2,.7,.2,1),box-shadow .3s}
+.luma-card:hover{transform:translateY(-4px);box-shadow:0 30px 60px -30px rgba(0,0,0,.55)}
+.luma-top{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid #2a2f2d}
+.luma-tag{font-family:var(--display);font-size:16px;letter-spacing:.14em;color:var(--paper)}
+.luma-live{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#b9c0bc;display:flex;align-items:center;gap:8px}
+.luma-dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,46,18,.6);animation:lumapulse 2s infinite}
+@keyframes lumapulse{0%{box-shadow:0 0 0 0 rgba(255,46,18,.55)}70%{box-shadow:0 0 0 9px rgba(255,46,18,0)}100%{box-shadow:0 0 0 0 rgba(255,46,18,0)}}
+.luma-body{padding:26px 22px 24px}
+.luma-day{font-family:var(--mono);font-size:12px;letter-spacing:.2em;color:var(--red);margin-bottom:12px}
+.luma-title{font-family:var(--display);font-size:clamp(26px,7vw,34px);text-transform:uppercase;line-height:1;margin-bottom:14px;overflow-wrap:break-word}
+.luma-title .red{color:var(--red)}
+.luma-desc{color:#b9c0bc;font-size:15px;line-height:1.5;max-width:38ch}
+.luma-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:16px 22px;border-top:1px solid #2a2f2d;font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:#8a928e}
+.luma-cta{color:var(--paper)}
+.luma-card:hover .luma-cta{color:var(--red)}
+.luma-note{color:#3a403d;font-size:14px;margin-top:18px;max-width:40ch}
+/* coordinate link chip */
+.coord-chip{display:inline-flex;align-items:center;gap:14px;margin-top:26px;padding:12px 16px;border:1px solid var(--ink);background:var(--paper);text-decoration:none;color:var(--ink);border-radius:2px;transition:background .25s,transform .25s,box-shadow .25s;max-width:100%}
+.coord-chip:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);box-shadow:0 14px 30px -18px rgba(0,0,0,.5)}
+.coord-pin{font-size:20px;color:var(--red);line-height:1;flex:none}
+.coord-body{display:flex;flex-direction:column;gap:3px;min-width:0}
+.coord-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel)}
+.coord-chip:hover .coord-label{color:#b9c0bc}
+.coord-nums{font-family:var(--mono);font-size:14px;letter-spacing:.04em;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.coord-go{font-family:var(--mono);font-size:16px;color:var(--red);margin-left:auto;flex:none;transition:transform .25s}
+.coord-chip:hover .coord-go{transform:translate(2px,-2px)}
+@media(max-width:420px){.coord-nums{font-size:12px}.coord-chip{gap:10px;padding:11px 13px}}
+@media(max-width:880px){.join-grid{grid-template-columns:1fr}}
+
+/* ---------- FAQ ---------- */
+#faq h2{font-size:clamp(40px,6vw,86px);margin-bottom:48px}
+details{border-top:1px solid var(--ink)}
+details:last-of-type{border-bottom:1px solid var(--ink)}
+summary{
+  list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+  padding:24px 8px;font-family:var(--display);font-size:clamp(18px,2vw,26px);text-transform:uppercase;font-weight:400;
+  transition:padding-left .3s;
+}
+summary::-webkit-details-marker{display:none}
+summary:hover{padding-left:18px;color:var(--red)}
+summary .x{font-family:var(--mono);font-size:18px;color:var(--red);transition:transform .3s}
+details[open] .x{transform:rotate(45deg)}
+details p{padding:0 8px 28px;max-width:64ch;color:#3a403d}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 36px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:70px}
+.f-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7f8884;margin-bottom:18px}
+.f-grid a{display:block;text-decoration:none;margin-bottom:10px;font-size:15px;color:#cfd5d2;transition:color .2s}
+.f-grid a:hover{color:var(--red)}
+.f-big{font-family:var(--display);font-size:clamp(54px,9vw,140px);text-transform:uppercase;line-height:.9;font-weight:400;color:var(--paper)}
+.f-big .red{color:var(--red)}
+.f-bottom{border-top:1px solid #262b29;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7f8884}
+@media(max-width:760px){.f-grid{grid-template-columns:1fr}}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rev{opacity:1;transform:none}
+}
+/* General mobile polish */
+html,body{overflow-x:hidden;max-width:100%}
+@media(max-width:640px){
+  section{padding:clamp(56px,10vh,90px) 0}
+  .btn{padding:14px 20px}
+  a,button,summary{-webkit-tap-highlight-color:transparent}
+  .hero-cta{flex-wrap:wrap;gap:12px}
+  .hero-cta .btn{flex:1 1 auto;text-align:center;justify-content:center}
+}
+@media(max-width:400px){
+  .hud .lbl{display:none}
+}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div id="bar" aria-hidden="true"></div>
+
+<header>
+  <a class="logo" href="#hero" aria-label="Back to top">
+    <span class="logo-lockup">
+      <span class="logo-arc">ARC</span>
+      <span class="logo-rule"></span>
+      <span class="logo-sub">AARE RUN CLUB</span>
+    </span>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#manifest">Club</a>
+    <a href="#route">Route</a>
+    <a href="#join">Join</a>
+  </nav>
+  <div class="hud" aria-label="Scroll telemetry">
+    <div><span class="lbl">DIST</span><span class="val" id="hud-dist">0.00 KM</span></div>
+    <div class="pace-cell"><span class="lbl">PACE</span><span class="val hot" id="hud-pace">--:--</span></div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="hero">
+  <div class="hero-ghost" aria-hidden="true">46<br>00</div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow">Run Club · Olten · <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px">Start at the old bridge</a></div>
+    <h1 class="h-display hero-title" id="hero-title">
+      We run<br>along the<br><span class="red">Aare.</span>
+    </h1>
+    <p class="hero-sub">
+      One run a week. Every pace. No club, no fee, no ego.
+      Just Olten, the river, and people who show up together.
+    </p>
+    <div class="hero-cta">
+      <a class="btn" href="#join"><span>Run with us</span></a>
+      <a class="btn ghost" href="#route"><span>See the route</span></a>
+    </div>
+    <div class="scroll-hint">
+      <span class="dot"></span>
+      <span>Scrolling = running · Your pace is measured above</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marquee">
+    <span>Old Bridge <span class="sep">→</span> Ländi Buvette <span class="sep">→</span> Train Station <span class="sep">→</span> Rowing Club <span class="sep">→</span> Gösgerstrasse <span class="sep">→</span> Winznau <span class="sep">→</span> Hospital <span class="sep">→</span> Aarhof <span class="sep">→</span></span><span>Old Bridge <span class="sep">→</span> Ländi Buvette <span class="sep">→</span> Train Station <span class="sep">→</span> Rowing Club <span class="sep">→</span> Gösgerstrasse <span class="sep">→</span> Winznau <span class="sep">→</span> Hospital <span class="sep">→</span> Aarhof <span class="sep">→</span></span><span>Old Bridge <span class="sep">→</span> Ländi Buvette <span class="sep">→</span> Train Station <span class="sep">→</span> Rowing Club <span class="sep">→</span> Gösgerstrasse <span class="sep">→</span> Winznau <span class="sep">→</span> Hospital <span class="sep">→</span> Aarhof <span class="sep">→</span></span>
+  </div>
+</div>
+
+<!-- ============ MANIFEST ============ -->
+<section id="manifest">
+  <div class="wrap">
+    <div class="eyebrow rev">Manifest</div>
+    <div class="grid">
+      <h2 class="h-display rev">Running in Olten is a <em>team sport.</em></h2>
+      <div class="manifest-copy rev">
+        <p>The Aare Run Club is Olten's open run club. Started by one person who was tired of running alone. Today we're a crew of beginners, marathoners and everyone in between.</p>
+        <p>No sign-up, no membership, no personal best required. All you need is shoes and the willingness to grab a coffee in the old town afterwards, still sweaty.</p>
+      </div>
+    </div>
+    <div class="stats rev">
+      <div class="stat"><b><span data-count="1">0</span></b><span>Run per week</span></div>
+      <div class="stat"><b class="nocount">SUN</b><span>09:00 start</span></div>
+      <div class="stat"><b><span data-count="6" data-dec="0">0</span></b><span>KM home loop</span></div>
+      <div class="stat"><b><span data-count="0">0</span></b><span>CHF membership</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROUTE ============ -->
+<section id="route">
+  <div class="wrap">
+    <div class="eyebrow rev">The home loop</div>
+    <div class="route-head rev">
+      <h2 class="h-display">6 KM Olten Loop</h2>
+    </div>
+    <div class="route-stage rev">
+      <svg class="route-svg" viewBox="0 0 1000 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic map of the 6 kilometre home loop along the Aare in Olten">
+
+        <g stroke="#CDD2CF" stroke-width="1">
+          <line x1="0" y1="160" x2="1000" y2="160"/><line x1="0" y1="320" x2="1000" y2="320"/><line x1="0" y1="480" x2="1000" y2="480"/>
+          <line x1="250" y1="0" x2="250" y2="640"/><line x1="500" y1="0" x2="500" y2="640"/><line x1="750" y1="0" x2="750" y2="640"/>
+        </g>
+        <path d="M 356.6 675.4 Q 345.2 556.0 341.4 530.4 Q 337.7 504.8 337.4 497.3 Q 337.2 489.8 336.5 474.0 Q 335.9 458.2 336.8 443.6 Q 337.6 428.9 339.2 412.2 Q 340.8 395.5 343.4 378.7 Q 345.9 361.9 349.5 345.0 Q 353.0 328.0 357.2 311.8 Q 361.4 295.6 366.6 280.4 Q 371.7 265.1 377.9 251.0 Q 384.1 236.8 391.1 223.5 Q 398.2 210.3 405.9 198.2 Q 413.7 186.0 422.4 174.1 Q 431.0 162.3 439.8 151.6 Q 448.5 140.9 456.9 132.1 Q 465.2 123.3 473.0 116.8 Q 480.8 110.3 487.9 106.6 Q 495.0 102.9 500.9 102.4 Q 506.8 101.9 511.9 104.0 Q 516.9 106.0 521.6 110.0 Q 526.3 114.0 531.2 119.4 Q 536.0 124.8 541.7 131.1 Q 547.3 137.3 554.6 144.1 Q 561.8 151.0 571.1 158.4 Q 580.5 165.9 591.1 173.7 Q 601.7 181.5 612.7 189.2 Q 623.6 196.8 633.4 203.5 Q 643.1 210.1 649.9 214.7 Q 656.6 219.3 658.9 220.9 Q 661.2 222.5 658.9 220.9 Q 656.6 219.3 649.9 214.7 Q 643.1 210.1 633.5 204.0 Q 623.9 197.8 613.6 192.1 Q 603.2 186.4 594.1 183.0 Q 584.9 179.6 578.2 179.6 Q 571.5 179.7 568.4 183.7 Q 565.2 187.8 565.6 195.3 Q 565.9 202.7 569.1 212.2 Q 572.3 221.6 577.6 231.4 Q 582.9 241.2 588.8 250.0 Q 594.8 258.8 602.6 267.4 Q 610.5 276.0 614.3 280.0 Q 618.0 284.0 632.5 295.8 Q 646.9 307.6 698.0 355.4 L 749.1 403.3" fill="none" stroke="#9FB8B2" stroke-width="24" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        <text x="250" y="560" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="4" fill="#9aa19e">AARE</text><text x="308" y="618" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="4" fill="#9aa19e">AARBURG ↓</text><text x="276" y="156" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="4" fill="#9aa19e">TRIMBACH</text><text x="668" y="132" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="4" fill="#9aa19e">WINZNAU</text><text x="780" y="300" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="4" fill="#9aa19e">RICHTUNG AARAU →</text>
+        <path id="route-path" pathLength="100" d="M 319.5 450.7 Q 321.8 449.1 322.1 448.9 Q 322.4 448.6 323.1 448.0 Q 323.9 447.4 324.6 446.8 Q 325.3 446.3 326.2 445.7 Q 327.1 445.1 328.1 444.5 Q 329.1 443.9 330.3 443.4 Q 331.5 442.9 332.9 442.5 Q 334.2 442.2 335.6 442.3 Q 337.0 442.4 338.4 442.4 Q 339.9 442.3 341.4 442.2 Q 342.9 442.1 344.5 441.6 Q 346.0 441.1 347.5 440.1 Q 348.9 439.0 349.8 437.1 Q 350.8 435.3 351.4 433.1 Q 352.0 431.0 352.1 428.8 Q 352.3 426.6 351.9 424.5 Q 351.6 422.4 351.0 420.7 Q 350.4 418.9 350.1 417.5 Q 349.7 416.1 349.5 414.9 Q 349.4 413.7 349.5 412.6 Q 349.7 411.5 350.1 410.5 Q 350.5 409.4 351.2 408.2 Q 351.8 407.0 352.5 405.7 Q 353.3 404.3 353.9 402.8 Q 354.5 401.2 354.9 399.4 Q 355.4 397.5 355.6 395.5 Q 355.9 393.4 356.0 391.3 Q 356.1 389.1 356.3 386.8 Q 356.5 384.5 356.7 382.0 Q 357.0 379.5 357.7 376.9 Q 358.4 374.4 358.9 371.6 Q 359.4 368.8 359.9 365.9 Q 360.4 362.9 361.0 359.9 Q 361.5 356.8 362.2 353.7 Q 362.9 350.7 363.6 347.4 Q 364.3 344.2 365.1 340.8 Q 366.0 337.4 366.7 334.0 Q 367.3 330.7 368.0 327.3 Q 368.8 323.8 369.7 320.5 Q 370.5 317.2 371.4 313.8 Q 372.3 310.3 373.1 306.9 Q 373.8 303.5 375.0 299.8 Q 376.2 296.1 377.7 292.7 Q 379.2 289.2 380.6 285.2 Q 381.9 281.2 383.1 277.3 Q 384.4 273.3 386.3 269.3 Q 388.2 265.3 390.3 261.2 Q 392.3 257.1 394.2 252.5 Q 396.1 248.0 398.3 243.6 Q 400.6 239.2 403.0 234.6 Q 405.4 230.0 407.8 225.4 Q 410.3 220.7 413.0 216.2 Q 415.8 211.8 418.6 207.3 Q 421.4 202.8 424.1 198.4 Q 426.8 193.9 429.9 189.9 Q 433.0 185.9 435.9 182.0 Q 438.8 178.1 441.5 174.3 Q 444.2 170.4 447.1 167.1 Q 450.0 163.8 452.6 160.7 Q 455.3 157.5 457.7 154.5 Q 460.1 151.5 462.5 148.8 Q 464.9 146.1 467.1 143.9 Q 469.3 141.6 471.2 139.4 Q 473.2 137.2 475.3 135.4 Q 477.3 133.5 479.1 131.9 Q 480.9 130.2 482.7 128.8 Q 484.5 127.5 486.2 126.2 Q 488.0 125.0 489.7 123.9 Q 491.3 122.8 493.1 121.9 Q 494.9 121.0 496.4 120.4 Q 498.0 119.9 499.9 119.4 Q 501.9 119.0 502.9 116.3 Q 503.9 113.7 505.9 110.6 Q 507.8 107.6 509.5 104.7 Q 511.2 101.8 513.2 99.1 Q 515.2 96.3 516.6 93.6 Q 518.0 90.8 520.0 90.5 Q 522.0 90.2 522.8 90.2 Q 523.5 90.3 523.9 90.2 Q 524.3 90.2 524.2 89.7 Q 524.1 89.3 523.7 88.6 Q 523.2 88.0 522.5 87.2 Q 521.9 86.4 521.0 85.5 Q 520.1 84.5 519.0 83.6 Q 517.9 82.6 516.7 81.7 Q 515.4 80.8 514.1 80.0 Q 512.7 79.1 511.2 78.4 Q 509.7 77.7 508.1 77.2 Q 506.5 76.7 504.7 76.4 Q 503.0 76.1 501.1 76.0 Q 499.3 75.8 497.3 75.9 Q 495.3 76.0 493.2 76.3 Q 491.1 76.5 488.8 77.0 Q 486.5 77.4 484.2 78.0 Q 481.8 78.6 479.3 79.3 Q 476.8 80.0 474.2 80.8 Q 471.6 81.6 469.0 82.5 Q 466.4 83.4 463.8 84.3 Q 461.2 85.3 458.7 86.3 Q 456.2 87.3 453.8 88.4 Q 451.5 89.4 449.3 90.5 Q 447.1 91.6 445.2 92.8 Q 443.2 93.9 441.5 95.1 Q 439.9 96.3 438.5 97.5 Q 437.1 98.8 436.1 100.1 Q 435.0 101.4 434.2 102.7 Q 433.4 104.1 432.9 105.5 Q 432.4 107.0 432.0 108.5 Q 431.7 110.0 431.4 111.6 Q 431.2 113.2 431.0 115.0 Q 430.8 116.7 430.5 118.6 Q 430.2 120.6 429.8 122.6 Q 429.4 124.7 428.7 127.1 Q 428.1 129.4 427.1 132.0 Q 426.2 134.5 425.0 137.4 Q 423.7 140.2 422.1 143.3 Q 420.5 146.4 418.6 149.8 Q 416.6 153.2 414.3 156.7 Q 411.9 160.2 409.5 164.1 Q 407.0 167.9 404.4 171.9 Q 401.8 176.0 399.0 180.0 Q 396.2 184.0 393.6 188.3 Q 391.0 192.5 388.6 196.8 Q 386.2 201.1 383.9 205.3 Q 381.5 209.5 379.2 213.4 Q 376.8 217.4 375.0 221.3 Q 373.2 225.3 371.4 228.9 Q 369.5 232.5 367.9 235.9 Q 366.3 239.3 364.8 242.4 Q 363.3 245.5 362.2 248.4 Q 361.1 251.4 360.0 254.1 Q 358.8 256.7 357.8 259.2 Q 356.8 261.7 356.0 263.9 Q 355.1 266.1 354.3 268.2 Q 353.6 270.2 352.9 272.0 Q 352.2 273.9 351.6 275.5 Q 351.0 277.2 350.5 278.7 Q 350.0 280.2 349.5 281.5 Q 349.0 282.9 348.5 284.2 Q 348.1 285.5 347.6 286.8 Q 347.2 288.1 346.8 289.4 Q 346.4 290.7 346.1 292.1 Q 345.7 293.5 345.3 295.0 Q 344.9 296.6 344.6 298.3 Q 344.2 300.0 343.7 301.9 Q 343.3 303.8 342.8 306.0 Q 342.3 308.2 341.5 310.5 Q 340.8 312.8 340.1 315.5 Q 339.5 318.1 338.8 321.0 Q 338.2 323.8 337.5 326.9 Q 336.8 329.9 336.1 333.1 Q 335.4 336.2 334.8 339.5 Q 334.2 342.7 333.4 345.8 Q 332.5 349.0 331.6 352.0 Q 330.7 355.0 329.7 357.9 Q 328.6 360.7 327.6 363.4 Q 326.5 366.0 325.4 368.4 Q 324.3 370.8 323.2 372.9 Q 322.1 375.1 321.0 377.0 Q 320.0 378.9 319.0 380.6 Q 317.9 382.3 317.0 383.8 Q 316.1 385.3 315.3 386.7 Q 314.5 388.1 313.9 389.4 Q 313.3 390.6 312.9 391.8 Q 312.5 393.0 312.3 394.2 Q 312.1 395.3 312.0 396.5 Q 312.0 397.6 312.2 398.7 Q 312.3 399.9 312.7 401.0 Q 313.0 402.2 313.4 403.4 Q 313.8 404.6 314.3 405.9 Q 314.8 407.2 315.4 408.5 Q 315.9 409.9 316.4 411.3 Q 316.9 412.7 317.4 414.1 Q 317.9 415.6 318.4 417.1 Q 318.8 418.6 319.2 420.2 Q 319.6 421.8 319.8 423.3 Q 320.1 424.9 320.4 426.4 Q 320.6 428.0 320.8 429.5 Q 320.9 431.0 321.0 432.4 Q 321.1 433.8 321.2 435.1 Q 321.2 436.5 321.3 437.7 Q 321.3 438.9 321.2 439.9 Q 321.2 441.0 321.2 442.0 Q 321.1 442.9 321.0 443.7 Q 320.9 444.6 320.7 445.5 Q 320.6 446.4 320.5 446.9 Q 320.4 447.3 319.9 449.0 L 319.5 450.7 Z" fill="none" stroke="#FF2E12" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <g><g class="mk" data-at="0"><circle cx="319" cy="451" r="8" fill="#0E1110"/><circle cx="319" cy="451" r="14" fill="none" stroke="#FF2E12" stroke-width="2"/><a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener"><text x="297" y="485" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2" fill="#0E1110">START / FINISH · OLD BRIDGE</text></a></g><g class="mk" data-at="0.125"><circle cx="361" cy="357" r="7" fill="#FF2E12"/><text x="383" y="361" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2" fill="#0E1110">TRAIN STATION</text></g><g class="mk" data-at="0.85"><circle cx="338" cy="324" r="7" fill="#FF2E12"/><text x="316" y="328" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="14" letter-spacing="2" fill="#0E1110">HOSPITAL</text></g><g class="mk" data-at="0.35"><text x="393" y="300" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2" fill="#737B78">GÖSGERSTRASSE</text></g><g class="mk" data-at="0.55"><text x="348" y="235" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="13" letter-spacing="2" fill="#737B78">QUAISTRASSE</text></g><g class="mk" data-at="0.97"><circle cx="319" cy="451" r="14" fill="none" stroke="#FF2E12" stroke-width="2"/></g></g>
+      </svg>
+    </div>
+    <div class="km-list" id="km-list">
+      <div class="km" data-at="0"><b>KM 0</b>Old bridge, start point</div>
+      <div class="km" data-at="0.125"><b>KM 1</b>Along the Aare to the train station</div>
+      <div class="km" data-at="0.35"><b>KM 2.5</b>Gösgerstrasse, river side</div>
+      <div class="km" data-at="0.62"><b>KM 4</b>Quaistrasse on the way back</div>
+      <div class="km" data-at="0.85"><b>KM 5</b>Past the hospital, along the river</div>
+      <div class="km" data-at="0.97"><b>KM 6</b>Back at the old bridge, finish</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOIN ============ -->
+<section id="join">
+  <div class="wrap join-grid">
+    <div>
+      <div class="eyebrow rev">Join in</div>
+      <h2 class="h-display rev">Just show<br>up.</h2>
+      <p class="lead rev">Before each run, join our Strava club. It's non-binding and just helps everyone keep track of who's coming and see the next date. New here? Just turn up five minutes early and say hi.</p>
+      <a class="coord-chip rev" href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">
+        <span class="coord-pin" aria-hidden="true">◎</span>
+        <span class="coord-body">
+          <span class="coord-label">Meeting point · Old Bridge</span>
+          <span class="coord-nums">47.3496476, 7.9042966</span>
+        </span>
+        <span class="coord-go" aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <div class="rev">
+      <a class="luma-card" href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">
+        <div class="luma-top">
+          <span class="luma-tag">STRAVA</span>
+          <span class="luma-live"><span class="luma-dot"></span>Run club</span>
+        </div>
+        <div class="luma-body">
+          <div class="luma-day">SUN · 09:00</div>
+          <div class="luma-title">Sunday Run · <span class="red">6 KM</span></div>
+          <div class="luma-desc">Meet at the old bridge. Easy pace, every level welcome, coffee in the old town after.</div>
+        </div>
+        <div class="luma-foot">
+          <span>Join before the run · non-binding</span>
+          <span class="luma-cta">Open Strava club →</span>
+        </div>
+      </a>
+      <p class="luma-note rev">Tap the card to open the Strava club and see all upcoming runs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow rev">Questions</div>
+    <h2 class="h-display rev">Quickly cleared up.</h2>
+    <div class="rev">
+      <details>
+        <summary>Does it cost anything to join? <span class="x">+</span></summary>
+        <p>No. The club is free and stays free. For the odd special event we might collect a small voluntary contribution, always transparent, never required.</p>
+      </details>
+      <details>
+        <summary>Am I too slow for you? <span class="x">+</span></summary>
+        <p>No. The Sunday run is conversational pace: if you can't talk anymore, you're going too fast. Nobody gets left behind, that's the one rule we actually mean.</p>
+      </details>
+      <details>
+        <summary>What happens in rain or snow? <span class="x">+</span></summary>
+        <p>We run. Olten has no bad weather, only good jackets. If there's a thunderstorm or black ice we call it off on Strava, but that rarely happens.</p>
+      </details>
+      <details>
+        <summary>Do I have to sign up for a run? <span class="x">+</span></summary>
+        <p>Not strictly. Just come five minutes before the start at <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">the old bridge</a>. Joining the Strava club is non-binding and only helps us know you're coming and keeps you in the loop.</p>
+      </details>
+      <details>
+        <summary>I'm just visiting Olten. Can I run along? <span class="x">+</span></summary>
+        <p>Absolutely. Guests are welcome at every run, from commuters to tourists. Say hi at the start and we'll fold you into the group.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-big rev" style="margin-bottom:64px">See you<br>at the <span class="red">river.</span></div>
+    <div class="f-grid">
+      <div>
+        <h4>Aare Run Club</h4>
+        <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">Start at the old bridge</a>
+        <a href="#hero">4600 Olten, Switzerland</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Join the Strava club</a>
+      </div>
+      <div>
+        <h4>Club</h4>
+        <a href="#manifest">The Club</a>
+        <a href="#route">Home loop</a>
+        <a href="#join">Join</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="https://instagram.com/arc.4600" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Strava</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Aare Run Club Olten</span>
+      <span>Run · Aare · Repeat</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- scroll telemetry: distance + pace ---------- */
+  const hudDist = document.getElementById("hud-dist");
+  const hudPace = document.getElementById("hud-pace");
+  const bar = document.getElementById("bar");
+  const TOTAL_KM = 6;
+
+  let lastY = window.scrollY;
+  let vel = 0;          // smoothed px/frame
+  let marqueeX = 0;
+  const marquee = document.getElementById("marquee");
+  const heroTitle = document.getElementById("hero-title");
+  let marqueeW = 0;
+  function measureMarquee(){ marqueeW = marquee.scrollWidth / 3; }
+  measureMarquee();
+  window.addEventListener("resize", measureMarquee);
+
+  function fmtPace(sec){
+    const m = Math.floor(sec/60), s = Math.round(sec%60);
+    return m + ":" + String(s).padStart(2,"0");
+  }
+
+  let idleFrames = 0;
+
+  function frame(){
+    const y = window.scrollY;
+    const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const p = Math.min(1, y / max);
+
+    // distance + progress bar
+    hudDist.textContent = (p * TOTAL_KM).toFixed(2) + " KM";
+    bar.style.width = (p * 100) + "%";
+
+    // velocity (smoothed)
+    const dy = y - lastY;
+    lastY = y;
+    vel += (dy - vel) * 0.12;
+    const speed = Math.abs(vel);
+
+    // pace from scroll speed: schneller scrollen = schnellerer pace
+    if (speed > 0.4){
+      idleFrames = 0;
+      const paceSec = Math.max(162, 465 - speed * 6.5); // 7:45 .. 2:42
+      hudPace.textContent = fmtPace(paceSec) + " /KM";
+    } else if (++idleFrames > 45){
+      hudPace.textContent = "--:--";
+    }
+
+    if (!reduceMotion){
+      // marquee drifts with scroll velocity
+      marqueeX -= 1.2 + Math.min(14, speed * 0.45);
+      if (marqueeX <= -marqueeW) marqueeX += marqueeW;
+      marquee.style.transform = "translateX(" + marqueeX + "px)";
+
+      // hero kinetic skew
+      const skew = Math.max(-5, Math.min(5, vel * 0.10));
+      heroTitle.style.transform = "skewX(" + (-skew) + "deg) translateY(" + (y * 0.12) + "px)";
+    }
+
+    // route drawing
+    routeFrame();
+
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- route draws while the map itself is in view ---------- */
+  const routeStage = document.querySelector(".route-stage");
+  const routePath = document.getElementById("route-path");
+  routePath.style.strokeDasharray = 100;
+  routePath.style.strokeDashoffset = 100;
+  const marks = Array.from(document.querySelectorAll(".mk"));
+  marks.forEach(m => { m.style.opacity = 0; m.style.transition = "opacity .5s"; });
+  const kms = Array.from(document.querySelectorAll(".km"));
+
+  function routeFrame(){
+    const r = routeStage.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // Start drawing later: only once the map has scrolled up into view.
+    // Start drawing only once the map is centred in view.
+    // startAt = map top at 45% viewport height (map already well up), endAt = map top near top edge.
+    const startAt = vh * 0.45;
+    const endAt   = vh * 0.02;
+    const prog = Math.min(1, Math.max(0, (startAt - r.top) / (startAt - endAt)));
+    const eased = reduceMotion ? 1 : prog;
+    routePath.style.strokeDashoffset = 100 - eased * 100;
+    marks.forEach(m => { m.style.opacity = eased >= parseFloat(m.dataset.at) ? 1 : 0; });
+    kms.forEach(k => { k.classList.toggle("lit", eased >= parseFloat(k.dataset.at)); });
+  }
+
+  requestAnimationFrame(frame);
+
+  /* ---------- reveal on scroll (staggered) ---------- */
+  const revEls = document.querySelectorAll(".rev");
+  if (reduceMotion){
+    revEls.forEach(el => el.classList.add("on"));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting){
+          e.target.classList.add("on");
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revEls.forEach((el, i) => {
+      el.style.transitionDelay = (i % 4) * 0.08 + "s";
+      io.observe(el);
+    });
+  }
+
+  /* ---------- animated counters ---------- */
+  const counters = document.querySelectorAll("[data-count]");
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      const el = e.target;
+      const target = parseFloat(el.dataset.count);
+      const dec = parseInt(el.dataset.dec || "0", 10);
+      if (reduceMotion){ el.textContent = target.toFixed(dec); return; }
+      const t0 = performance.now(), dur = 1400;
+      (function tick(t){
+        const k = Math.min(1, (t - t0) / dur);
+        const ease = 1 - Math.pow(1 - k, 3);
+        el.textContent = (target * ease).toFixed(dec);
+        if (k < 1) requestAnimationFrame(tick);
+      })(t0);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(c => cio.observe(c));
+
+})();
+</script>
+</body>
+</html>
