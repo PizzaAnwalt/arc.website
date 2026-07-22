@@ -19,7 +19,8 @@ body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:
 ::selection{background:var(--red);color:var(--paper)}
 a{color:inherit}
 img{max-width:100%}
-.wrap{max-width:1180px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
 .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:26px}
 .eyebrow::before{content:"";width:34px;height:1px;background:var(--red);flex:none}
 section{padding:clamp(72px,11vh,132px) 0;position:relative}
@@ -29,18 +30,6 @@ section{padding:clamp(72px,11vh,132px) 0;position:relative}
 .lead{color:#3a403d;max-width:48ch}
 .rev{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
 .rev.on{opacity:1;transform:none}
-/* header */
-header{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:14px clamp(20px,4vw,56px);background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo-lockup{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
-.logo-arc{font-family:var(--display);font-size:26px;letter-spacing:.02em;color:var(--ink);line-height:.9}
-.logo-rule{display:block;width:100%;height:2px;background:var(--red);margin:3px 0 4px}
-.logo-sub{font-family:var(--mono);font-size:8px;letter-spacing:.34em;color:var(--ink);padding-left:.34em}
-nav{display:flex;gap:26px}
-nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
-nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
-nav a:hover::after{width:100%}
-@media(max-width:820px){nav{display:none}}
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:16px 28px;text-decoration:none;border:1px solid var(--ink);background:var(--ink);color:var(--paper);position:relative;overflow:hidden;transition:color .35s;border-radius:2px}
 .btn span{position:relative;z-index:1}
@@ -49,15 +38,12 @@ nav a:hover::after{width:100%}
 .btn.ghost{background:transparent;color:var(--ink)}
 .btn.ghost:hover{color:var(--paper)}
 .btn.ghost::before{background:var(--ink)}
-.btn--sm{padding:11px 18px;font-size:11px}
-/* dark-section buttons */
 .hero .btn:not(.ghost),.signup .btn:not(.ghost){background:var(--red);border-color:var(--red)}
 .hero .btn:not(.ghost)::before,.signup .btn:not(.ghost)::before{background:var(--paper)}
 .hero .btn:not(.ghost):hover,.signup .btn:not(.ghost):hover{color:var(--ink)}
 .hero .btn.ghost,.signup .btn.ghost{color:var(--paper);border-color:var(--paper)}
 .hero .btn.ghost::before,.signup .btn.ghost::before{background:var(--paper)}
 .hero .btn.ghost:hover,.signup .btn.ghost:hover{color:var(--ink)}
-/* ghost watermark */
 .ghost-svg{position:absolute;pointer-events:none;user-select:none;z-index:0;height:auto}
 /* HERO */
 .hero{background:var(--night);color:var(--paper);overflow:hidden;padding-top:clamp(150px,20vh,220px)}
@@ -93,7 +79,7 @@ nav a:hover::after{width:100%}
 .fact>b{display:block;font-family:var(--display);font-size:clamp(22px,2.3vw,30px);font-weight:400;line-height:1.02;text-transform:uppercase}
 .fact small{display:block;margin-top:6px;font-size:13px;color:#3a403d}
 @media(max-width:820px){.facts{grid-template-columns:1fr}}
-/* IMPACT (dark) */
+/* IMPACT */
 .impact{background:var(--night);color:var(--paper);overflow:hidden}
 .impact .eyebrow{color:#7f8884}
 .impact .ghost-svg{left:-8%;bottom:-10%;width:clamp(300px,40vw,560px);opacity:.05}
@@ -127,34 +113,77 @@ nav a:hover::after{width:100%}
 .signup-cta{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .signup-cta .btn{width:100%;justify-content:center}
 @media(max-width:820px){.signup-inner{grid-template-columns:1fr}.signup-cta{align-items:stretch}}
-/* footer */
-footer{background:var(--ink);color:var(--paper);padding:76px 0 34px}
-.f-big{font-family:var(--display);font-size:clamp(48px,8vw,120px);text-transform:uppercase;line-height:.9;font-weight:400;margin-bottom:56px}
-.f-big .red{color:var(--red)}
-.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:44px;margin-bottom:60px}
-.f-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7f8884;margin-bottom:16px}
-.f-grid a{display:block;text-decoration:none;margin-bottom:10px;font-size:15px;color:#cfd5d2;transition:color .2s}
-.f-grid a:hover{color:var(--red)}
-.f-bottom{border-top:1px solid #262b29;padding-top:22px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7f8884}
-@media(max-width:760px){.f-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}}
 :focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* ---------- progress bar ---------- */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:1001}
+
+/* ---------- header / HUD ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,56px);
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-lockup{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+.logo-arc{font-family:var(--display);font-size:26px;letter-spacing:.02em;color:var(--ink);line-height:.9}
+.logo-rule{display:block;width:100%;height:2px;background:var(--red);margin:3px 0 4px}
+.logo-sub{font-family:var(--mono);font-size:8px;letter-spacing:.34em;color:var(--ink);padding-left:.34em}
+.logo-text{font-family:var(--mono);font-size:12px;letter-spacing:.16em;line-height:1.3}
+.logo-text small{display:block;color:var(--steel);font-size:10px}
+nav{display:flex;gap:28px}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
+nav a:hover::after{width:100%}
+.hud{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.hud .lbl{color:var(--steel);margin-right:6px}
+.hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.hud .val.hot{color:var(--red)}
+@media(max-width:960px){nav{display:none}}
+@media(max-width:620px){.hud{gap:14px;font-size:10px}.hud .lbl{margin-right:4px}}
+
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 36px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:70px}
+.f-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7f8884;margin-bottom:18px}
+.f-grid a{display:block;text-decoration:none;margin-bottom:10px;font-size:15px;color:#cfd5d2;transition:color .2s}
+.f-grid a:hover{color:var(--red)}
+.f-big{font-family:var(--display);font-size:clamp(54px,9vw,140px);text-transform:uppercase;line-height:.9;font-weight:400;color:var(--paper)}
+.f-big .red{color:var(--red)}
+.f-bottom{border-top:1px solid #262b29;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7f8884}
+@media(max-width:760px){.f-grid{grid-template-columns:1fr}}
+
 
 </style>
 </head>
 <body>
 
+<div id="bar" aria-hidden="true"></div>
+
 <header>
-  <a class="logo" href="index.html" aria-label="Aare Run Club home">
-    <span class="logo-lockup"><span class="logo-arc">ARC</span><span class="logo-rule"></span><span class="logo-sub">AARE RUN CLUB</span></span>
+  <a class="logo" href="/#hero" aria-label="Back to top">
+    <span class="logo-lockup">
+      <span class="logo-arc">ARC</span>
+      <span class="logo-rule"></span>
+      <span class="logo-sub">AARE RUN CLUB</span>
+    </span>
   </a>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="#how">How it works</a>
-    <a href="#details">Details</a>
-    <a href="#impact">Where it goes</a>
+  <nav aria-label="Main navigation">
+    <a href="/#manifest">Club</a>
+    <a href="/#route">Route</a>
+    <a href="/#join">Join</a>
+    <a href="/charity">Charity</a>
   </nav>
-  <a class="btn btn--sm" href="https://o2h.ch/o2h" target="_blank" rel="noopener"><span>Sign up</span></a>
+  <div class="hud" aria-label="Scroll telemetry">
+    <div><span class="lbl">DIST</span><span class="val" id="hud-dist">0.00 KM</span></div>
+    <div class="pace-cell"><span class="lbl">PACE</span><span class="val hot" id="hud-pace">--:--</span></div>
+  </div>
 </header>
 
 <!-- HERO -->
@@ -173,10 +202,10 @@ footer{background:var(--ink);color:var(--paper);padding:76px 0 34px}
     <h1 class="h-display hero-title rev">Run for<br>a <span class="red">reason.</span></h1>
     <p class="hero-lead rev">On Saturday 19 September 2026, the Aare Run Club runs the 39th Oltner 2-Stunden-Lauf as one group. You collect sponsors per kilometre, we run laps through Olten for two hours &mdash; and every kilometre turns into real money for charity.</p>
     <div class="cta-row rev">
-      <a class="btn" href="https://o2h.ch/o2h" target="_blank" rel="noopener"><span>Sign up at o2h &rarr;</span></a>
+      <a class="btn" href="https://o2h.ch/" target="_blank" rel="noopener"><span>Sign up at o2h &rarr;</span></a>
       <a class="btn ghost" href="https://instagram.com/arc.4600" target="_blank" rel="noopener"><span>Follow on Instagram</span></a>
     </div>
-    <p class="hero-note rev">Register at o2h.ch/o2h and select <b>Aare Run Club</b> as your club.</p>
+    <p class="hero-note rev">Register at o2h.ch and select <b>Aare Run Club</b> as your club.</p>
   </div>
 </section>
 
@@ -186,7 +215,7 @@ footer{background:var(--ink);color:var(--paper);padding:76px 0 34px}
     <div class="eyebrow rev">How it works &middot; every kilometre counts</div>
     <h2 class="h-display sec-title rev">Run with us,<br>do <span class="red">good.</span></h2>
     <div class="steps">
-      <div class="step rev"><div class="step-n">01</div><h3>Create an account</h3><p>Sign up at <b>o2h.ch/o2h</b> and pick <b>Aare Run Club</b> as your club, so your kilometres and sponsors count towards the ARC team.</p></div>
+      <div class="step rev"><div class="step-n">01</div><h3>Create an account</h3><p>Sign up at <b>o2h.ch</b> and pick <b>Aare Run Club</b> as your club, so your kilometres and sponsors count towards the ARC team.</p></div>
       <div class="step rev"><div class="step-n">02</div><h3>Find sponsors</h3><p>Ask family, friends and colleagues to pledge a small amount <b>per kilometre</b> you run. More sponsors, more impact.</p></div>
       <div class="step rev"><div class="step-n">03</div><h3>Run with us</h3><p>Show up in Olten on 19 September, run the <b>1.1 km loop</b> for two hours and rack up laps. Every lap turns pledges into real money.</p></div>
     </div>
@@ -204,7 +233,7 @@ footer{background:var(--ink);color:var(--paper);padding:76px 0 34px}
       <div class="fact"><span>Format</span><b>1.1 km loop</b><small>As many laps as you can in 2h</small></div>
       <div class="fact"><span>Entry</span><b>CHF 10</b><small>Free up to your 16th birthday</small></div>
       <div class="fact"><span>Club</span><b>Aare Run Club</b><small>Select us when you register</small></div>
-      <div class="fact"><span>Sign up</span><b>o2h.ch/o2h</b><small>Online registration</small></div>
+      <div class="fact"><span>Sign up</span><b>o2h.ch</b><small>Online registration</small></div>
     </div>
   </div>
 </section>
@@ -257,45 +286,64 @@ footer{background:var(--ink);color:var(--paper);padding:76px 0 34px}
       <p class="lead rev">Create your account, pick Aare Run Club, and turn your kilometres into something bigger than a personal best.</p>
     </div>
     <div class="signup-cta rev">
-      <a class="btn" href="https://o2h.ch/o2h" target="_blank" rel="noopener"><span>Sign up at o2h.ch &rarr;</span></a>
+      <a class="btn" href="https://o2h.ch/" target="_blank" rel="noopener"><span>Sign up at o2h.ch &rarr;</span></a>
       <a class="btn ghost" href="https://instagram.com/arc.4600" target="_blank" rel="noopener"><span>Questions? Ask on Instagram</span></a>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
-    <div class="f-big rev">Every km<br>counts.</div>
+    <div class="f-big rev" style="margin-bottom:64px">See you<br>at the <span class="red">river.</span></div>
     <div class="f-grid">
       <div>
         <h4>Aare Run Club</h4>
-        <a href="index.html">Back to home</a>
-        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Strava club</a>
-        <a href="https://instagram.com/arc.4600" target="_blank" rel="noopener">Instagram &middot; @arc.4600</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">Start at the old bridge</a>
+        <a href="/#hero">4600 Olten, Switzerland</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Join the Strava club</a>
       </div>
       <div>
-        <h4>The run</h4>
-        <a href="https://o2h.ch/o2h" target="_blank" rel="noopener">Sign up &middot; o2h.ch</a>
-        <a href="#details">Run details</a>
-        <a href="#impact">Where it goes</a>
+        <h4>Club</h4>
+        <a href="/#manifest">The Club</a>
+        <a href="/#route">Home loop</a>
+        <a href="/#join">Join</a>
       </div>
       <div>
-        <h4>Charity</h4>
-        <a href="https://borntohelpothers.org" target="_blank" rel="noopener">Born To Help Others</a>
+        <h4>Follow</h4>
+        <a href="https://instagram.com/arc.4600" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Strava</a>
+        <a href="https://linktr.ee/aarerunclub" target="_blank" rel="noopener">Linktree</a>
       </div>
     </div>
-    <div class="f-bottom"><span>&copy; 2026 Aare Run Club Olten</span><span>Run &middot; Aare &middot; Repeat</span></div>
+    <div class="f-bottom">
+      <span>© 2026 Aare Run Club Olten</span>
+      <span>Run · Aare · Repeat</span>
+    </div>
   </div>
 </footer>
 
 <script>
 (function(){
+  "use strict";
   var rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hudDist=document.getElementById("hud-dist"), hudPace=document.getElementById("hud-pace"), bar=document.getElementById("bar");
+  var TOTAL_KM=6, lastY=window.scrollY, vel=0, idle=0;
+  function fmt(sec){var m=Math.floor(sec/60),s=Math.round(sec%60);return m+":"+String(s).padStart(2,"0");}
+  function frame(){
+    var y=window.scrollY, max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight), p=Math.min(1,y/max);
+    if(hudDist) hudDist.textContent=(p*TOTAL_KM).toFixed(2)+" KM";
+    if(bar) bar.style.width=(p*100)+"%";
+    var dy=y-lastY; lastY=y; vel+=(dy-vel)*0.12; var sp=Math.abs(vel);
+    if(hudPace){ if(sp>0.4){idle=0; hudPace.textContent=fmt(Math.max(162,465-sp*6.5))+" /KM";} else if(++idle>45){hudPace.textContent="--:--";} }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
   var els=document.querySelectorAll(".rev");
-  if(rm){els.forEach(function(e){e.classList.add("on")});return;}
-  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);}})},{threshold:.12});
-  els.forEach(function(e,i){e.style.transitionDelay=((i%4)*0.07)+"s";io.observe(e);});
+  if(rm){els.forEach(function(e){e.classList.add("on")});}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);}})},{threshold:.12});
+    els.forEach(function(e,i){e.style.transitionDelay=((i%4)*0.07)+"s";io.observe(e);});
+  }
 })();
 </script>
 
