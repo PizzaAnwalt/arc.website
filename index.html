@@ -78,7 +78,9 @@ nav a:hover::after{width:100%}
 .hud .lbl{color:var(--steel);margin-right:6px}
 .hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
 .hud .val.hot{color:var(--red)}
-@media(max-width:960px){nav{display:none}}
+@media(max-width:640px){.hud{display:none}}
+@media(max-width:640px){.scroll-hint{display:none}}
+@media(max-width:560px){nav{gap:18px}nav a{font-size:10px;letter-spacing:.1em}}
 @media(max-width:620px){.hud{gap:14px;font-size:10px}.hud .lbl{margin-right:4px}}
 
 /* ---------- hero ---------- */
@@ -335,9 +337,7 @@ html,body{overflow-x:hidden;max-width:100%}
     </span>
   </a>
   <nav aria-label="Main navigation">
-    <a href="/#manifest">Club</a>
-    <a href="/#route">Route</a>
-    <a href="/#join">Join</a>
+    <a href="/">Home</a>
     <a href="/charity">Charity</a>
   </nav>
   <div class="hud" aria-label="Scroll telemetry">
