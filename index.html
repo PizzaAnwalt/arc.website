@@ -73,7 +73,7 @@ header{
 nav{display:flex;gap:28px}
 nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
 nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
-nav a:hover::after{width:100%}
+nav a:hover::after{width:100%}nav a.active::after{width:100%}
 .hud{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
 .hud .lbl{color:var(--steel);margin-right:6px}
 .hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
@@ -337,8 +337,9 @@ html,body{overflow-x:hidden;max-width:100%}
     </span>
   </a>
   <nav aria-label="Main navigation">
-    <a href="/">Home</a>
+    <a href="/" class="active">Home</a>
     <a href="/charity">Charity</a>
+    <a href="/about">About</a>
   </nav>
   <div class="hud" aria-label="Scroll telemetry">
     <div><span class="lbl">DIST</span><span class="val" id="hud-dist">0.00 KM</span></div>
@@ -355,7 +356,7 @@ html,body{overflow-x:hidden;max-width:100%}
       We run<br>along the<br><span class="red">Aare.</span>
     </h1>
     <p class="hero-sub">
-      One run a week. Every pace. No membership, no fee, no ego.
+      One run a week. Every pace. No club, no fee, no ego.
       Just Olten, the river, and people who show up together.
     </p>
     <div class="hero-cta">

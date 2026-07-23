@@ -140,7 +140,7 @@ header{
 nav{display:flex;gap:28px}
 nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
 nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
-nav a:hover::after{width:100%}
+nav a:hover::after{width:100%}nav a.active::after{width:100%}
 .hud{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
 .hud .lbl{color:var(--steel);margin-right:6px}
 .hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
@@ -179,7 +179,8 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 36px}
   </a>
   <nav aria-label="Main navigation">
     <a href="/">Home</a>
-    <a href="/charity">Charity</a>
+    <a href="/charity" class="active">Charity</a>
+    <a href="/about">About</a>
   </nav>
   <div class="hud" aria-label="Scroll telemetry">
     <div><span class="lbl">DIST</span><span class="val" id="hud-dist">0.00 KM</span></div>

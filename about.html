@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About · Aare Run Club · Olten</title>
+<meta name="description" content="The people behind the Aare Run Club: two friends, Julian and Kagithan, who turned years of Instagram running reels into an open platform for sport and friendship in Olten. Everyone's welcome — one easy run a week along the Aare.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+:root{--paper:#EDEFEE;--ink:#0E1110;--red:#FF2E12;--steel:#737B78;--line:#CDD2CF;--night:#0B0E0D;--display:'Anton',sans-serif;--body:'Archivo',sans-serif;--mono:'IBM Plex Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--red);color:var(--paper)}
+a{color:inherit}
+img{max-width:100%}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--steel);display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:26px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--red);flex:none}
+section{padding:clamp(64px,10vh,120px) 0;position:relative}
+.h-display{font-family:var(--display);text-transform:uppercase;line-height:.92;letter-spacing:.005em;font-weight:400}
+.sec-title{font-size:clamp(34px,4.6vw,66px);margin-bottom:8px}
+.sec-title .red{color:var(--red)}
+.lead{color:#3a403d;max-width:56ch}
+.rev{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.rev.on{opacity:1;transform:none}
+
+/* ---------- hero (parallax masthead) ---------- */
+#hero{min-height:80svh;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(150px,20vh,210px);padding-bottom:clamp(52px,8vh,90px);border-bottom:1px solid var(--line);overflow:hidden}
+.hero-ghost{
+  position:absolute;right:-2vw;top:12vh;
+  font-family:var(--display);font-size:clamp(150px,32vw,500px);
+  line-height:.78;color:transparent;
+  -webkit-text-stroke:1px var(--line);text-stroke:1px var(--line);
+  user-select:none;pointer-events:none;z-index:0;will-change:transform;
+}
+.hero-inner{position:relative;z-index:1}
+.hero-title{font-size:clamp(46px,7.6vw,124px);will-change:transform}
+.hero-title .ln{display:block;overflow:hidden;padding-bottom:.12em}
+.hero-title .ln > span{display:block;transform:translateY(118%);transition:transform 1s cubic-bezier(.19,1,.22,1)}
+.hero-title.on .ln:nth-child(1) > span{transform:none;transition-delay:.06s}
+.hero-title.on .ln:nth-child(2) > span{transform:none;transition-delay:.19s}
+.hero-title .red{color:var(--red)}
+.hero-sub{max-width:600px;margin-top:24px;font-size:18px;color:#3a403d}
+.hero-sub b{color:var(--ink);font-weight:600}
+.hero-note{display:inline-flex;align-items:center;gap:13px;margin-top:32px;font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel)}
+.hero-note .hn-dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:none}
+.hero-note b{color:var(--ink);font-weight:500}
+@media(max-width:440px){.hero-note{font-size:10.5px;letter-spacing:.1em}}
+
+/* ---------- shared band ---------- */
+.band-grey{background:#E6E9E7;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+
+/* ---------- us (portraits + names) — shown first ---------- */
+.people{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3.5vw,40px);margin-top:44px}
+.ph{position:relative;border:1px solid var(--ink);border-radius:3px;overflow:hidden;background-color:#DEE2E0;background-size:cover;background-position:center;background-repeat:no-repeat;aspect-ratio:4/5;filter:grayscale(.12) contrast(1.02)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.person .nm{font-family:var(--display);font-size:clamp(26px,3vw,40px);text-transform:uppercase;font-weight:400;line-height:1;margin-top:20px}
+.person .role{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-top:10px}
+@media(max-width:640px){.people{grid-template-columns:1fr;gap:36px}}
+
+/* ---------- story ---------- */
+.story .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(36px,6vw,90px);align-items:start}
+.story-copy p{color:#3a403d;font-size:17px;max-width:58ch}
+.story-copy p + p{margin-top:20px}
+.story-copy b{color:var(--ink);font-weight:600}
+@media(max-width:820px){.story .grid{grid-template-columns:1fr;gap:28px}}
+
+/* ---------- vision & mission ---------- */
+.vm{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--ink);border:1px solid var(--ink);border-radius:3px;overflow:hidden;margin-top:44px}
+.card{background:var(--paper);padding:clamp(30px,3.4vw,44px) clamp(28px,3vw,40px) clamp(36px,4vw,48px);position:relative;overflow:hidden;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.card:hover{transform:translateY(-6px)}
+.card::after{content:"";position:absolute;left:0;bottom:0;height:4px;width:100%;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.7,0,.3,1)}
+.card:hover::after{transform:scaleX(1)}
+.card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:16px}
+.card h3{font-family:var(--display);font-size:clamp(28px,3.4vw,46px);text-transform:uppercase;font-weight:400;line-height:.98;margin-bottom:16px}
+.card p{color:#3a403d;font-size:15.5px;max-width:42ch}
+.card p b{font-weight:700;color:var(--ink)}
+@media(max-width:640px){.vm{grid-template-columns:1fr}}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.rev{opacity:1;transform:none}.hero-title .ln > span{transform:none}}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+
+/* ---------- progress bar ---------- */
+#bar{position:fixed;top:0;left:0;height:3px;width:0;background:var(--red);z-index:1001}
+
+/* ---------- header / HUD (identical to other pages) ---------- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px clamp(20px,4vw,56px);
+  background:color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-lockup{display:inline-flex;flex-direction:column;align-items:center;line-height:1}
+.logo-arc{font-family:var(--display);font-size:26px;letter-spacing:.02em;color:var(--ink);line-height:.9}
+.logo-rule{display:block;width:100%;height:2px;background:var(--red);margin:3px 0 4px}
+.logo-sub{font-family:var(--mono);font-size:8px;letter-spacing:.34em;color:var(--ink);padding-left:.34em}
+nav{display:flex;gap:28px}
+nav a{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;position:relative;padding:4px 0}
+nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--red);transition:width .3s}
+nav a:hover::after{width:100%}
+nav a.active::after{width:100%}
+.hud{display:flex;gap:22px;font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.hud .lbl{color:var(--steel);margin-right:6px}
+.hud .val{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+.hud .val.hot{color:var(--red)}
+@media(max-width:640px){.hud{display:none}}
+@media(max-width:560px){nav{gap:18px}nav a{font-size:10px;letter-spacing:.1em}}
+@media(max-width:620px){.hud{gap:14px;font-size:10px}.hud .lbl{margin-right:4px}}
+
+/* ---------- footer (identical to other pages) ---------- */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 36px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;margin-bottom:70px}
+.f-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7f8884;margin-bottom:18px}
+.f-grid a{display:block;text-decoration:none;margin-bottom:10px;font-size:15px;color:#cfd5d2;transition:color .2s}
+.f-grid a:hover{color:var(--red)}
+.f-big{font-family:var(--display);font-size:clamp(54px,9vw,140px);text-transform:uppercase;line-height:.9;font-weight:400;color:var(--paper)}
+.f-big .red{color:var(--red)}
+.f-bottom{border-top:1px solid #262b29;padding-top:24px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#7f8884}
+@media(max-width:760px){.f-grid{grid-template-columns:1fr}}
+
+</style>
+</head>
+<body>
+
+<div id="bar" aria-hidden="true"></div>
+
+<header>
+  <a class="logo" href="/#hero" aria-label="Back to top">
+    <span class="logo-lockup">
+      <span class="logo-arc">ARC</span>
+      <span class="logo-rule"></span>
+      <span class="logo-sub">AARE RUN CLUB</span>
+    </span>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="/">Home</a>
+    <a href="/charity">Charity</a>
+    <a href="/about" class="active">About</a>
+  </nav>
+  <div class="hud" aria-label="Scroll telemetry">
+    <div><span class="lbl">DIST</span><span class="val" id="hud-dist">0.00 KM</span></div>
+    <div class="pace-cell"><span class="lbl">PACE</span><span class="val hot" id="hud-pace">--:--</span></div>
+  </div>
+</header>
+
+<!-- ============ HERO (parallax + giant number) ============ -->
+<section id="hero">
+  <div class="hero-ghost" id="hero-ghost" aria-hidden="true">46<br>00</div>
+  <div class="wrap hero-inner">
+    <div class="eyebrow rev">About · Aare Run Club</div>
+    <h1 class="h-display hero-title" id="hero-title">
+      <span class="ln"><span>The people</span></span>
+      <span class="ln"><span>behind the <span class="red">run.</span></span></span>
+    </h1>
+    <p class="hero-sub rev">
+      Whatever your pace and whatever your reason, you're welcome here.
+      One easy run a week along the Aare &mdash; <b>no fees, no pressure,
+      and nobody left behind.</b>
+    </p>
+    <p class="hero-note rev"><span class="hn-dot"></span>Olten · Est. 2026 · Built on <b>sport &amp; friendship</b></p>
+  </div>
+</section>
+
+<!-- ============ US (2 images + names) — shown first ============ -->
+<section class="us band-grey" id="us">
+  <div class="wrap">
+    <div class="eyebrow rev">Us</div>
+    <h2 class="h-display sec-title rev">The two who <span class="red">started it.</span></h2>
+    <div class="people">
+      <!-- JULIAN — put julian.jpg next to this file. Tweak the 2nd % to reframe. -->
+      <figure class="person rev">
+        <div class="ph" style="background-image:url('julian.jpg');background-position:50% 40%" role="img" aria-label="Julian as a kid in a leopard costume at Olten carnival"></div>
+        <div class="nm">Julian</div>
+        <div class="role">Co-founder · talked Kagi into it</div>
+      </figure>
+      <!-- KAGITHAN — put kagithan.jpg next to this file. Tweak the 2nd % to reframe. -->
+      <figure class="person rev">
+        <div class="ph" style="background-image:url('kagithan.jpg');background-position:50% 42%" role="img" aria-label="Kagithan as a kid, school portrait"></div>
+        <div class="nm">Kagithan</div>
+        <div class="role">Co-founder · said yes, eventually</div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="story" id="story">
+  <div class="wrap">
+    <div class="grid">
+      <div>
+        <div class="eyebrow rev">How it started</div>
+        <h2 class="h-display sec-title rev">We got tired of<br>running <span class="red">alone.</span></h2>
+      </div>
+      <div class="story-copy rev">
+        <p>Julian and Kagithan have been friends for years. Somewhere along the way Julian talked Kagithan into lacing up too, and jogging became something we both loved &mdash; just <b>never together.</b> Same hobby, same town, two separate routes.</p>
+        <p>The whole &ldquo;let's start a run club&rdquo; idea, though, was pure hot air &mdash; endless reels back and forth on Instagram, plenty of hype, and <b>zero follow-through.</b></p>
+        <p>Until one day we stopped talking about it. We picked a time, a place, and a first Sunday &mdash; and this time we <b>actually showed up.</b></p>
+        <p>What keeps us going is Olten itself. We missed doing things together here as a community &mdash; the town can feel closed off and a little lonely. The Aare Run Club is our small fix for that: <b>connecting sport and community</b>, one run at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VISION & MISSION ============ -->
+<section class="band-grey" id="vm">
+  <div class="wrap">
+    <div class="eyebrow rev">Where we're headed</div>
+    <h2 class="h-display sec-title rev">Vision <span class="red">&amp; mission.</span></h2>
+    <div class="vm">
+      <div class="card rev">
+        <div class="tag">Vision</div>
+        <h3>A town that<br>runs together.</h3>
+        <p>An Olten where a weekly run is simply part of the week &mdash; <b>open, free, and welcoming to every pace and every body.</b></p>
+      </div>
+      <div class="card rev">
+        <div class="tag">Mission</div>
+        <h3>Show up,<br>every week.</h3>
+        <p>One reliable, friendly run every week along the Aare. We keep the door open, keep it free, and <b>make sure no one has to run alone.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="f-big rev" style="margin-bottom:64px">See you<br>at the <span class="red">river.</span></div>
+    <div class="f-grid">
+      <div>
+        <h4>Aare Run Club</h4>
+        <a href="https://www.google.com/maps/search/?api=1&query=47.3496476,7.9042966" target="_blank" rel="noopener">Start at the old bridge</a>
+        <a href="/#hero">4600 Olten, Switzerland</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Join the Strava club</a>
+      </div>
+      <div>
+        <h4>Club</h4>
+        <a href="/#manifest">The Club</a>
+        <a href="/#route">Home loop</a>
+        <a href="/#join">Join</a>
+      </div>
+      <div>
+        <h4>Follow</h4>
+        <a href="https://instagram.com/arc.4600" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.strava.com/clubs/2241497?share_sig=79F8D6CA1783595428" target="_blank" rel="noopener">Strava</a>
+        <a href="https://linktr.ee/aarerunclub" target="_blank" rel="noopener">Linktree</a>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <span>© 2026 Aare Run Club Olten</span>
+      <span>Run · Aare · Repeat</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var rm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var hudDist=document.getElementById("hud-dist"), hudPace=document.getElementById("hud-pace"), bar=document.getElementById("bar");
+  var heroTitle=document.getElementById("hero-title"), heroGhost=document.getElementById("hero-ghost");
+  var TOTAL_KM=6, lastY=window.scrollY, vel=0, idle=0;
+
+  /* headline reveal on load */
+  if(heroTitle){
+    if(rm){ heroTitle.classList.add("on"); }
+    else{ requestAnimationFrame(function(){ requestAnimationFrame(function(){ heroTitle.classList.add("on"); }); }); }
+  }
+
+  function fmt(sec){var m=Math.floor(sec/60),s=Math.round(sec%60);return m+":"+String(s).padStart(2,"0");}
+  function frame(){
+    var y=window.scrollY, max=Math.max(1,document.documentElement.scrollHeight-window.innerHeight), p=Math.min(1,y/max);
+    if(hudDist) hudDist.textContent=(p*TOTAL_KM).toFixed(2)+" KM";
+    if(bar) bar.style.width=(p*100)+"%";
+    var dy=y-lastY; lastY=y; vel+=(dy-vel)*0.12; var sp=Math.abs(vel);
+    if(hudPace){ if(sp>0.4){idle=0; hudPace.textContent=fmt(Math.max(162,465-sp*6.5))+" /KM";} else if(++idle>45){hudPace.textContent="--:--";} }
+    if(!rm){
+      if(heroTitle){ var skew=Math.max(-5,Math.min(5,vel*0.10)); heroTitle.style.transform="skewX("+(-skew)+"deg) translateY("+(y*0.10)+"px)"; }
+      if(heroGhost){ heroGhost.style.transform="translateY("+(y*0.05)+"px) rotate("+(y*0.004)+"deg)"; }
+    }
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  var els=document.querySelectorAll(".rev");
+  if(rm){els.forEach(function(e){e.classList.add("on")});}
+  else{
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("on");io.unobserve(e.target);}})},{threshold:.12});
+    els.forEach(function(e,i){e.style.transitionDelay=((i%4)*0.07)+"s";io.observe(e);});
+  }
+})();
+</script>
+
+</body>
+</html>
